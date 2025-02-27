@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body>
+    <h1>Enter Something:</h1>
+    <input type="text" id="userInput">
+    <button onclick="sendData()">Submit</button>
+
+    <h2>Result:</h2>
+    <p id="result"></p>
+
+    <script>
+        function sendData() {
+            let inputText = document.getElementById("userInput").value;
+
+            fetch('/process', { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: inputText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = "Response: " + data.output;
+            });
+        }
+    </script>
+</body>
+</html>
